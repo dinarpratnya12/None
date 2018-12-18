@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".User.Main2Activity">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,14 +27,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Team_Activity" />
-        <activity android:name=".Login.LoginActivity" />
         <activity android:name=".User.LihatBiodata" />
         <activity android:name=".User.UpdateBiodata" />
         <activity android:name=".User.BuatBiodata" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Login.RegisterActivity" />
-        <activity android:name=".Login.UserAreaActivity" />
+        <activity android:name=".User.Main2Activity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -48,7 +48,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".Login.LoginSuccessActivity"></activity>
     </application>
 
 </manifest>

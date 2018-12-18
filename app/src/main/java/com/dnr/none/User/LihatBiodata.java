@@ -1,5 +1,6 @@
 package com.dnr.none.User;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.dnr.none.MapsActivity;
 import com.dnr.none.R;
 
 public class LihatBiodata extends AppCompatActivity {
     protected Cursor cursor;
     DataHelper dbHelper;
-    Button ton2;
-    TextView text1, text2, text3, text4, text5;
+    Button ton2, ton3;
+    String longitude, latitude;
+    TextView text1, text2, text3, text4, text5, text6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,10 @@ public class LihatBiodata extends AppCompatActivity {
         text3 = (TextView) findViewById(R.id.textView3);
         text4 = (TextView) findViewById(R.id.textView4);
         text5 = (TextView) findViewById(R.id.textView5);
+        text6 = (TextView) findViewById(R.id.textView6);
+
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        cursor = db.rawQuery("SELECT * FROM biodata WHERE nama = '" + getIntent().getStringExtra("nama") + "'",null);
+        cursor = db.rawQuery("SELECT * FROM list WHERE tim = '" + getIntent().getStringExtra("tim") + "'",null);
         cursor.moveToFirst();
         if (cursor.getCount()>0)
         {
@@ -38,6 +43,9 @@ public class LihatBiodata extends AppCompatActivity {
             text3.setText(cursor.getString(2).toString());
             text4.setText(cursor.getString(3).toString());
             text5.setText(cursor.getString(4).toString());
+            text6.setText(cursor.getString(5).toString());
+            longitude = (cursor.getString(4).toString());
+            latitude = (cursor.getString(5).toString());
         }
         ton2 = (Button) findViewById(R.id.button1);
         ton2.setOnClickListener(new View.OnClickListener() {
@@ -48,5 +56,16 @@ public class LihatBiodata extends AppCompatActivity {
                 finish();
             }
         });
+        ton3 = (Button) findViewById(R.id.button2);
+        ton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LihatBiodata.this, MapsActivity.class);
+                i.putExtra("longitude",longitude);
+                i.putExtra("latitude",latitude);
+                startActivity(i);
+            }
+        });
+
     }
 }

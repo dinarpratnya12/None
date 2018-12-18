@@ -1,5 +1,6 @@
 package com.dnr.none;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -37,10 +38,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        float zoomLavel = 16.0f;
 
+        Intent intent = getIntent();
+        Double longitude = Double.parseDouble(intent.getStringExtra("longitude"));
+        Double latitude = Double.parseDouble(intent.getStringExtra("latitude"));
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(longitude, latitude);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLavel));
     }
+
 }
