@@ -22,26 +22,32 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
     DataHelper dbHelper;
     Button ton1;
-    EditText username, fullname, email, number, password;
+    EditText id, username, fullname, email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         dbHelper = new DataHelper(this);
+        id = (EditText) findViewById(R.id.etNomor);
         username = (EditText) findViewById(R.id.etUsername) ;
         fullname = (EditText) findViewById(R.id.etName);
         email = (EditText) findViewById(R.id.etEmail);
         password = (EditText) findViewById(R.id.etPassword);
-        ton1 = (Button) findViewById(R.id.btnRegister);
+        ton1 = (Button) findViewById(R.id.bRegister);
+
         ton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
-                db.execSQL("insert into user(id, username, fullname, email, number, password) values(null,'" +username.getText().toString() + "','" +fullname.getText().toString() + "','" +email.getText().toString() + "','" +password.getText().toString() + "')");
-                Toast.makeText(getApplicationContext(), "Register Succeed",
-                        Toast.LENGTH_LONG).show();
+                db.execSQL("insert into TABLE_USERS (id, username, fullname, email, password) values('" +
+                        "'" +username.getText().toString() + "'," +
+                        "'" +fullname.getText().toString() + "'," +
+                        "'" +email.getText().toString() + "'," +
+                        "'" +password.getText().toString() + "')");
+                Toast.makeText(getApplicationContext(), "Register Succeed", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
